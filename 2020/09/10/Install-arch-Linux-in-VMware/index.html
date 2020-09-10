@@ -92,8 +92,8 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" href="/2020/09/10/hello-world/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        <li><a class="icon" href="/2020/09/10/hello-world/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -105,7 +105,8 @@
     </span>
     <br/>
     <div id="share" style="display: none">
-      <ul>
+      <!--
+<ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&text=Install arch Linux in VMware"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
@@ -118,6 +119,7 @@
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&name=Install arch Linux in VMware&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&t=Install arch Linux in VMware"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
+-->
 
     </div>
     <div id="toc">
@@ -348,7 +350,9 @@
   </div>
 </article>
 
-
+    <div class="blog-post-comments">
+        <div class="vcomment"></div>
+    </div>
 
 
         
@@ -376,7 +380,8 @@
     </div>
 
     <div id="share-footer" style="display: none">
-      <ul>
+      <!--
+<ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&text=Install arch Linux in VMware"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
@@ -389,6 +394,7 @@
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&name=Install arch Linux in VMware&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&t=Install arch Linux in VMware"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
+-->
 
     </div>
 
@@ -482,20 +488,34 @@
 <!-- Baidu Analytics -->
 
 
+<!-- Typed, Added on 2020/9/10 -->
+<script src="//cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script type="text/javascript">
+    
+    const option = {
+        strings: [  '^1000',
+            'Hello~ ^1000',
+            'Welcome to my home. ^2000',
+            ' Stay Hungry, Stay Foolish! :) '],
+        typeSpeed: 88,
+        startDelay: 2000,
+        backSpeed: 22,
+        cursorChar: '_'
+    };
+    const typed = new Typed('.typing', option);
+    
+</script>
+
 <!-- Valine Comments, added on 2020/9/10 -->
 
-    
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-
-    
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
     <script type="text/javascript">
         new Valine({
-            el: '.valine_comment',
-            app_id: 'x226vKJ5r3txIO7YW9hAsAUU-MdYXbMMI',
-            app_key: 'EyNTMHsVTzdoNb8oo6EfG7cS',
+            el: '.vcomment',
+            appId: 'x226vKJ5r3txIO7YW9hAsAUU-MdYXbMMI',
+            appKey: 'EyNTMHsVTzdoNb8oo6EfG7cS',
+            avatar:"retro",
             placeholder: 'Just say something! :)',
             notify: 'false',
             verify: 'false',
