@@ -1,4 +1,472 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="HandheldFriendly" content="True"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="description" content="Preface暑假里实在无聊，想到有“安装劝退”一说的Arch,应该能打发不少无聊时间吧；一直觉得命令行操作很神圣（炫、酷，~），大学刚开始就装了个来玩，是“对初学者友好”的Ubuntu，也就是按着某N、某书来的，装好后尴尬了😅，不知道该干嘛，高深的咱不懂，简单的一些操作指令敲多了也腻，于是搁置了。直到在装arch这段时间里，通过其优秀的官方文档 👏，辅以博文指导，才于第八次“渡劫”成功🎈，"><meta property="og:type" content="article"><meta property="og:title" content="Install arch Linux in VMware"><meta property="og:url" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/index.html"><meta property="og:site_name" content="Chy&#39;s blog"><meta property="og:description" content="Preface暑假里实在无聊，想到有“安装劝退”一说的Arch,应该能打发不少无聊时间吧；一直觉得命令行操作很神圣（炫、酷，~），大学刚开始就装了个来玩，是“对初学者友好”的Ubuntu，也就是按着某N、某书来的，装好后尴尬了😅，不知道该干嘛，高深的咱不懂，简单的一些操作指令敲多了也腻，于是搁置了。直到在装arch这段时间里，通过其优秀的官方文档 👏，辅以博文指导，才于第八次“渡劫”成功🎈，"><meta property="og:locale" content="en_US"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/01.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/02.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/03.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/04.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/05.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/06.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/07.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/08.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/09.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/10.png"><meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/11.png"><meta property="article:published_time" content="2020-09-10T10:52:38.000Z"><meta property="article:modified_time" content="2020-09-10T14:08:31.449Z"><meta property="article:author" content="chy"><meta property="article:tag" content="VMware"><meta property="article:tag" content="ArchLinux"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/01.png"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="icon" type="image/png" href="/images/android-chrome-192x192.png" sizes="192x192"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"><title>Install arch Linux in VMware</title><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/rtl.css"><meta name="generator" content="Hexo 5.1.1"></head><body class="max-width mx-auto px3 ltr"><div id="header-post"><a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a><a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a><a id="top-icon-tablet" href="#" onclick='$("html, body").animate({scrollTop:0},"fast")' style="display:none"><i class="fas fa-chevron-up fa-lg"></i></a><span id="menu"><span id="nav"><ul><li><a href="/">Home</a></li><li><a href="/archives">Writing</a></li><li><a href="/categories">Category</a></li></ul></span><br><span id="actions"><ul><li><a class="icon" href="/2020/09/10/hello-world/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle()' onmouseout='$("#i-prev").toggle()'></i></a></li><li><a class="icon" href="#" onclick='$("html, body").animate({scrollTop:0},"fast")'><i class="fas fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle()' onmouseout='$("#i-top").toggle()'></i></a></li><li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle()' onmouseout='$("#i-share").toggle()' onclick='return $("#share").toggle(),!1'></i></a></li></ul><span id="i-prev" class="info" style="display:none">Previous post</span> <span id="i-next" class="info" style="display:none">Next post</span> <span id="i-top" class="info" style="display:none">Back to top</span> <span id="i-share" class="info" style="display:none">Share post</span></span><br><div id="share" style="display:none"></div><div id="toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-number">1.</span> <span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main"><span class="toc-number">2.</span> <span class="toc-text">Main</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Before-you-begin"><span class="toc-number">2.1.</span> <span class="toc-text">Before you begin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="toc-number">2.1.1.</span> <span class="toc-text">版本说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.1.2.</span> <span class="toc-text">新建虚拟机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E9%80%89%E6%8B%A9"><span class="toc-number">2.1.3.</span> <span class="toc-text">方案选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Begin"><span class="toc-number">2.2.</span> <span class="toc-text">Begin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.2.1.</span> <span class="toc-text">检查网络连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="toc-number">2.2.2.</span> <span class="toc-text">更新系统时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA%F0%9F%91%88"><span class="toc-number">2.2.3.</span> <span class="toc-text">硬盘分区👈</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98%E4%BF%A1%E6%81%AF"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">查看硬盘信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">分区</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.4.</span> <span class="toc-text">格式化分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.5.</span> <span class="toc-text">挂载分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E9%A1%BB%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.2.6.</span> <span class="toc-text">安装必须的软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.2.7.</span> <span class="toc-text">配置系统</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Fstab"><span class="toc-number">2.2.7.1.</span> <span class="toc-text">Fstab</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Chroot"><span class="toc-number">2.2.7.2.</span> <span class="toc-text">Chroot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%B6%E5%8C%BA"><span class="toc-number">2.2.7.3.</span> <span class="toc-text">时区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%96"><span class="toc-number">2.2.7.4.</span> <span class="toc-text">本地化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.7.5.</span> <span class="toc-text">网络配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEroot%E5%AF%86%E7%A0%81"><span class="toc-number">2.2.7.6.</span> <span class="toc-text">设置root密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Boot-loader%F0%9F%91%88"><span class="toc-number">2.2.7.7.</span> <span class="toc-text">Boot loader👈</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%94%A8%E6%88%B7"><span class="toc-number">2.2.8.</span> <span class="toc-text">创建新用户</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E5%B0%BE"><span class="toc-number">2.3.</span> <span class="toc-text">收尾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#install-Gnome"><span class="toc-number">2.4.</span> <span class="toc-text">install Gnome</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tips"><span class="toc-number">2.4.1.</span> <span class="toc-text">tips</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.4.2.</span> <span class="toc-text">升级软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Xorg"><span class="toc-number">2.4.3.</span> <span class="toc-text">安装Xorg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Gnome%E4%B8%8Egdm"><span class="toc-number">2.4.4.</span> <span class="toc-text">安装Gnome与gdm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#End"><span class="toc-number">3.</span> <span class="toc-text">End</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol></div></span></div><div class="content index py4"><article class="post" itemscope itemtype="http://schema.org/BlogPosting"><header><h1 class="posttitle" itemprop="name headline">Install arch Linux in VMware</h1><div class="meta"><i class="fas fa-user-alt"></i> Author: <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">chy</span></span><br><div class="postdate"><i class="fas fa-calendar-times"></i> Date: <time datetime="2020-09-10T10:52:38.000Z" itemprop="datePublished">2020-09-10</time></div><br><div class="article-category"><i class="fas fa-archive"></i> Category: <a class="category-link" href="/categories/Linux/">Linux</a><br></div><div class="article-tag"><i class="fas fa-tag"></i> Tags: <a class="tag-link-link" href="/tags/ArchLinux/" rel="tag">ArchLinux</a>, <a class="tag-link-link" href="/tags/VMware/" rel="tag">VMware</a><br></div><i class="fas fa-eye"></i> <span id="/2020/09/10/Install-arch-Linux-in-VMware/" class="leancloud-visitors" data-flag-title="Install arch Linux in VMware"><em class="post-meta-item-text">Pageviews:</em> <i class="leancloud-visitors-count">loading</i></span></div></header><div class="content" itemprop="articleBody"><h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>暑假里实在无聊，想到有“安装劝退”一说的Arch,应该能打发不少无聊时间吧；<br>一直觉得命令行操作很神圣（炫、酷，<del>~</del>），大学刚开始就装了个来玩，是“对初学者友好”的Ubuntu，也就是按着某N、某书来的，装好后尴尬了😅，不知道该干嘛，高深的咱不懂，简单的一些操作指令敲多了也腻，于是搁置了。直到在装arch这段时间里，通过其优秀的<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/">官方文档</a> 👏，辅以博文指导，才于第八次“渡劫”成功🎈，也体会到了其中之妙；<br>我是一名稳健的人儿😁，VMware走起！！!</p><h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>Arch的安装其实<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Installation guide</a> 已经十分清晰、明了按着指南准没错，然后就是其中遇到的小坑之类的，Google一番，差不多就🆗了。</p><h3 id="Before-you-begin"><a href="#Before-you-begin" class="headerlink" title="Before you begin"></a>Before you begin</h3><h4 id="版本说明"><a href="#版本说明" class="headerlink" title="版本说明"></a>版本说明</h4><p><a target="_blank" rel="noopener" href="https://my.vmware.com/cn/web/vmware/downloads/info/slug/desktop_end_user_computing/vmware_workstation_pro/15_0#product_downloads">VMware workstation</a> ： <code>VMware® Workstation 15 Pro-15.1.0</code><br><a target="_blank" rel="noopener" href="https://www.archlinux.org/download/">Arch Linux ISO</a> ： <code>archlinux-2020.08.01-x86_64</code></p><h4 id="新建虚拟机"><a href="#新建虚拟机" class="headerlink" title="新建虚拟机"></a>新建虚拟机</h4><blockquote><p>客户机操作系统: <code>linux</code><br>版本： <code>其他 Linux 4.x 或更高版本内核 64位</code><br>网络类型： <code>NAT</code><br>磁盘容量： <code>20GB</code><br>处理器数及内核数、内存等选项: <code>推荐or自定</code></p></blockquote><h4 id="方案选择"><a href="#方案选择" class="headerlink" title="方案选择"></a>方案选择</h4><p>在正式安装前要先对Linux下<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Partitioning_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#Master_Boot_Record">分区表、分区方案以及bootloader等点</a> (该wiki很详尽，但概括性强，深入理解还需另外查阅资料)有一定的了解，然后确定自己要安装的Arch的方案；<br>以下本人提供两种方案，可能并不是最优解（因为我对分区相关内容理解也并不深），但行得通，对入门菜鸟来说，差不多了吧。😂</p><p>方案一：</p><blockquote><p>BIOS + MBR + <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/GRUB">GRUB</a></p></blockquote><p>方案二：</p><blockquote><p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface">EFI</a> + GPT + <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/REFInd">rEFInd</a></p></blockquote><h3 id="Begin"><a href="#Begin" class="headerlink" title="Begin"></a>Begin</h3><p>开启此虚拟机<br>但如果选择<strong>方案二</strong>，在开启前👇</p><blockquote><p>进入该虚拟机文件目录，找到 <code>xx.vmx</code> ,使用文本编辑器打开，在文件最底部添加行：</p><blockquote><p><code>firmware = &quot;efi&quot;</code></p></blockquote></blockquote><p>然后可以看到启动界面：<br>方案一：</p><img src="/2020/09/10/Install-arch-Linux-in-VMware/01.png" title="方案一启动界面"><p>方案二：</p><img src="/2020/09/10/Install-arch-Linux-in-VMware/02.png" title="方案二启动界面"><p>片刻就进入命令行界面了</p><h4 id="检查网络连接"><a href="#检查网络连接" class="headerlink" title="检查网络连接"></a>检查网络连接</h4><p>使用 <code>ping</code> 命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eg： ping -c 4 www.baidu.com</span><br></pre></td></tr></table></figure><h4 id="更新系统时间"><a href="#更新系统时间" class="headerlink" title="更新系统时间"></a>更新系统时间</h4><p>使用 <code>timedatectl</code> 确保系统时间是准确的：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-ntp <span class="literal">true</span></span><br></pre></td></tr></table></figure><p>可以使用 <code>timedatectl status</code> 检查服务状态</p><h4 id="硬盘分区👈"><a href="#硬盘分区👈" class="headerlink" title="硬盘分区👈"></a>硬盘分区👈</h4><h5 id="查看硬盘信息"><a href="#查看硬盘信息" class="headerlink" title="查看硬盘信息"></a>查看硬盘信息</h5><p><code>fdisk -l</code><br>我之前为该虚拟机分配了20GB，如图（请牢记你的硬盘名称，此处我的为 <code>/dev/sda</code> ）：</p><img src="/2020/09/10/Install-arch-Linux-in-VMware/03.png" title="硬盘信息"><p>结果中以 <code>rom</code>，<code>loop</code> 或者 <code>airoot</code> 结束的可以被忽略</p><h5 id="分区"><a href="#分区" class="headerlink" title="分区"></a><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%BB%BA%E7%AB%8B%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA">分区</a></h5><p>分区常用方案</p><blockquote><ul><li>引导分区 /boot：260–512 MiB</li><li>交换分区 swap：虚拟内存，大于 512 MiB</li><li>根目录 /：安装系统和软件，大小自定</li><li>用户home /home：用户文档等所在地，大小自定</li></ul></blockquote><p>我比较中意使用 <code>cdfisk</code>进行分区，键入命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cfdisk /dev/sda</span><br></pre></td></tr></table></figure><p>cfdisk使用：</p><blockquote><p>↑ ↓ 切换分区，← → 切换菜单选项；<br>先从 <code>free space</code> <code>new</code> 出分区，<code>new</code> 时确定分区大小，以及分区类型，然后可对该分区进行 <code>type</code> ,<code>bootable</code> 等定义；<br>分区完成后 <code>Write</code> , <code>yes</code>确定, <code>quit</code>即可</p></blockquote><p>然后会出现一道选择题 <code>select label type</code> :<br>毫无疑问，你是方案一就选择 <code>dos</code> ，方案二就选择 <code>gpt</code></p><img src="/2020/09/10/Install-arch-Linux-in-VMware/04.png" title="select label type"><p>方案一 分区方案：</p><img src="/2020/09/10/Install-arch-Linux-in-VMware/05.png" title="方案一 分区方案"><p>方案二 分区方案：</p><img src="/2020/09/10/Install-arch-Linux-in-VMware/06.png" title="方案二 分区方案"><h4 id="格式化分区"><a href="#格式化分区" class="headerlink" title="格式化分区"></a>格式化分区</h4><p>方案一：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/sda1</span><br><span class="line">mkswap /dev/sda2</span><br><span class="line">mkfs.ext4 /dev/sda3</span><br><span class="line">swapon /dev/sda2</span><br></pre></td></tr></table></figure><p>方案二：<br>EFI分区需要格式化成FAT32格式（具体见<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/EFI_system_partition">Wiki</a> ）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkfs.vfat -F32 /dev/sda1</span><br><span class="line">mkswap /dev/sda2</span><br><span class="line">mkfs.ext4 /dev/sda3</span><br><span class="line">mkfs.ext4 /dev/sda4</span><br><span class="line">swapon /dev/sda2</span><br></pre></td></tr></table></figure><h4 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h4><p>先挂载根分区</p><p>方案一：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda3 /mnt</span><br><span class="line">mkdir /mnt/boot</span><br><span class="line">mount /dev/sda1 /mnt/boot</span><br></pre></td></tr></table></figure><p>方案二：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda3 /mnt</span><br><span class="line">mkdir /mnt/boot</span><br><span class="line">mkdir /mnt/home</span><br><span class="line">mount /dev/sda1 /mnt/boot</span><br><span class="line">mount /dev/sda4 /mnt/home</span><br></pre></td></tr></table></figure><p><code>lsblk</code>查看是否挂载成功</p><img src="/2020/09/10/Install-arch-Linux-in-VMware/07.png" title="lsblk"><h4 id="安装必须的软件包"><a href="#安装必须的软件包" class="headerlink" title="安装必须的软件包"></a><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%AE%89%E8%A3%85%E5%BF%85%E9%A1%BB%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85">安装必须的软件包</a></h4><p>镜像源这个我没换也是ok的，所以，过！</p><p>键入命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap /mnt base linux linux-firmware vim</span><br></pre></td></tr></table></figure><p><code>base-devel</code> 这个看个人了 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php?title=Installation_Guide&diff=253744&oldid=250715">👉Wiki</a></p><h4 id="配置系统"><a href="#配置系统" class="headerlink" title="配置系统"></a>配置系统</h4><h5 id="Fstab"><a href="#Fstab" class="headerlink" title="Fstab"></a>Fstab</h5><p>生成 fstab 文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure><p>检查一下生成的 <code>/mnt/etc/fstab</code> 文件是否正确（正确的该是你的分区情况表）</p><h5 id="Chroot"><a href="#Chroot" class="headerlink" title="Chroot"></a>Chroot</h5><p>Change root 到新安装的系统：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch-chroot /mnt</span><br></pre></td></tr></table></figure><h5 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h5><p>设置时区：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure><p>运行 <code>hwclock</code> 以生成 <code>/etc/adjtime</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure><h5 id="本地化"><a href="#本地化" class="headerlink" title="本地化"></a>本地化</h5><p>本地化的程序与库若要本地化文本，都依赖 Locale，后者明确规定地域、货币、时区日期的格式、字符排列方式和其他本地化标准。<br>需在这两个文件设置：locale.gen 与 locale.conf。</p><p>编辑/etc/locale.gen 然后移除需要的 地区 前的注释符号 <code>#</code>。</p><p>接着执行 locale-gen 以生成 locale 信息：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locale-gen</span><br></pre></td></tr></table></figure><p>然后还需要设置LANG环境变量：</p><blockquote><p>新建<code>/etc/locale.conf</code>并写入<code>LANG=en_US.UTF-8</code></p></blockquote><h5 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h5><p>设置主机名：</p><blockquote><p>创建<code>/etc/hostname</code>并写入主机名</p></blockquote><p>添加对应的信息到 hosts（ <code>/etc/hosts</code> ）:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 localhost</span><br><span class="line">::1       localhost</span><br><span class="line">127.0.1.1 主机名.localdomain 主机名</span><br></pre></td></tr></table></figure><p>然后：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> dhcpcd.service</span><br><span class="line"><span class="comment"># 我这里提示不存在，于是：</span></span><br><span class="line">pacman -S dhcpcd</span><br></pre></td></tr></table></figure><h5 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置<code>root</code>密码</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure><h5 id="Boot-loader👈"><a href="#Boot-loader👈" class="headerlink" title="Boot loader👈"></a>Boot loader👈</h5><blockquote><p>需要安装 <code>Linux</code> 引导加载程序,才能在安装后启动系统，可以使用的的引导程序已在 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Boot_loaders_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">启动加载器</a> 中列出，请选择一个安装并配置它，<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/GRUB">GRUB</a> 是最常见的选择。</p></blockquote><p>方案一：<br>安装 <code>grub</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S grub</span><br><span class="line">grub-install /dev/sda</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure><p>方案二：<br>安装 <code>rEFInd</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S refind-efi</span><br><span class="line">refind-install</span><br></pre></td></tr></table></figure><p>对 <code>/boot/refind_linux.conf</code> 进行编辑：原：</p><img src="/2020/09/10/Install-arch-Linux-in-VMware/08.png" title="before"><p>修改后：</p><img src="/2020/09/10/Install-arch-Linux-in-VMware/09.png" title="now"><h4 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Users_and_groups">创建新用户</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -G additional_groups -s login_shell username</span><br><span class="line"><span class="comment"># eg:</span></span><br><span class="line">useradd -m -G wheel -s /bin/bash rick</span><br><span class="line"><span class="comment"># 设置密码：</span></span><br><span class="line">passwd username</span><br></pre></td></tr></table></figure><p>为使在 <code>wheel</code> 组中的普通用户能够获得临时的root权限，需要修改 wheel 的权限设置：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">visudo</span><br><span class="line"><span class="comment"># 去掉行 `#%wheel ALL=(ALL) ALL` 前的 `#`</span></span><br></pre></td></tr></table></figure><h3 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 退出`arch-chroot`:</span></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"><span class="comment"># 卸载根目录</span></span><br><span class="line">umount -R /mnt</span><br><span class="line"><span class="comment"># 然后，重启：</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure><p>幸运儿应该看到这个：😁</p><img src="/2020/09/10/Install-arch-Linux-in-VMware/10.png" title="grub引导界面"> <img src="/2020/09/10/Install-arch-Linux-in-VMware/11.png" title="refind引导界面"><h3 id="install-Gnome"><a href="#install-Gnome" class="headerlink" title="install Gnome"></a>install Gnome</h3><h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><ul><li>以普通用户登录</li><li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Mirrors">选择和配置镜像</a> （安装arch过程中用的原始list，挺顺畅的，但到Gnome时全部404）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># location: /etc/pacman.d/mirrorlist</span></span><br><span class="line"><span class="comment"># 附上几个源： </span></span><br><span class="line">Server = http://mirrors.aliyun.com/archlinux/<span class="variable">$repo</span>/os/<span class="variable">$arch</span>  <span class="comment">#阿里</span></span><br><span class="line">Server = http://mirrors.ustc.edu.cn/archlinux/<span class="variable">$repo</span>/os/<span class="variable">$arch</span>  <span class="comment">#中科大</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li></ul><h4 id="升级软件包"><a href="#升级软件包" class="headerlink" title="升级软件包"></a>升级软件包</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个 pacman 命令就可以升级整个系统。</span></span><br><span class="line">pacman -Syu</span><br></pre></td></tr></table></figure><h4 id="安装Xorg"><a href="#安装Xorg" class="headerlink" title="安装Xorg"></a>安装Xorg</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S xorg</span><br></pre></td></tr></table></figure><blockquote><p>摘自 <a target="_blank" rel="noopener" href="http://www.x.org/wiki/">http://www.x.org/wiki/</a>:<br>X.Org 项目提供了 X 窗口系统的开源实现。开发工作是在 freedesktop.org 社区的通力合作下完成。X.Org 组织是非盈利教育机构。<br>Xorg 在 Linux 用户中非常流行，已经成为图形用户程序的必备条件，所以大部分发行版都提供了它。详情参见 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/X.Org_Server">Xorg</a> 维基文章或访问<a target="_blank" rel="noopener" href="http://www.x.org/wiki/">Xorg 网站</a> 。</p></blockquote><p><del>#### 安装显卡驱动</del></p><p><strong>虚拟机没必要啊，似乎？！</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看显卡类型</span></span><br><span class="line">lspci |grep VGA</span><br><span class="line"><span class="comment"># 安装对应显卡驱动</span></span><br><span class="line">pacman -S xf86-video-xxx（nv,vmware,...）</span><br></pre></td></tr></table></figure><h4 id="安装Gnome与gdm"><a href="#安装Gnome与gdm" class="headerlink" title="安装Gnome与gdm"></a>安装<code>Gnome</code>与<code>gdm</code></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pacman -S gnome gnome-tweak-tool gdm</span><br><span class="line"><span class="comment"># 开机启动GDM服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> gdm.service</span><br><span class="line">reboot</span><br><span class="line"><span class="comment"># 就🆗了。。</span></span><br></pre></td></tr></table></figure><p>Gnome我居然也整了两三次，当时装好一直在“锁屏+解锁”，给我难受的😫；<br>然后一不小心看到了 <code>图形内存！！！</code> ，才256MB,原因一定在这了！！！😰</p><h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Arch_is_the_best">Arch is the best!</a></p><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul><li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/">ArchWiki</a></li><li><a target="_blank" rel="noopener" href="https://chaseafterstart.github.io/">chaseafterstart</a></li></ul></div></article><div class="blog-post-comments"><div class="vcomment"></div></div><div id="footer-post-container"><div id="footer-post"><div id="nav-footer" style="display:none"><ul><li><a href="/">Home</a></li><li><a href="/archives">Writing</a></li><li><a href="/categories">Category</a></li></ul></div><div id="toc-footer" style="display:none"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-number">1.</span> <span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main"><span class="toc-number">2.</span> <span class="toc-text">Main</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Before-you-begin"><span class="toc-number">2.1.</span> <span class="toc-text">Before you begin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="toc-number">2.1.1.</span> <span class="toc-text">版本说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.1.2.</span> <span class="toc-text">新建虚拟机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E9%80%89%E6%8B%A9"><span class="toc-number">2.1.3.</span> <span class="toc-text">方案选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Begin"><span class="toc-number">2.2.</span> <span class="toc-text">Begin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.2.1.</span> <span class="toc-text">检查网络连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="toc-number">2.2.2.</span> <span class="toc-text">更新系统时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA%F0%9F%91%88"><span class="toc-number">2.2.3.</span> <span class="toc-text">硬盘分区👈</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98%E4%BF%A1%E6%81%AF"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">查看硬盘信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">分区</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.4.</span> <span class="toc-text">格式化分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.5.</span> <span class="toc-text">挂载分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E9%A1%BB%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.2.6.</span> <span class="toc-text">安装必须的软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.2.7.</span> <span class="toc-text">配置系统</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Fstab"><span class="toc-number">2.2.7.1.</span> <span class="toc-text">Fstab</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Chroot"><span class="toc-number">2.2.7.2.</span> <span class="toc-text">Chroot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%B6%E5%8C%BA"><span class="toc-number">2.2.7.3.</span> <span class="toc-text">时区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%96"><span class="toc-number">2.2.7.4.</span> <span class="toc-text">本地化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.7.5.</span> <span class="toc-text">网络配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEroot%E5%AF%86%E7%A0%81"><span class="toc-number">2.2.7.6.</span> <span class="toc-text">设置root密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Boot-loader%F0%9F%91%88"><span class="toc-number">2.2.7.7.</span> <span class="toc-text">Boot loader👈</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%94%A8%E6%88%B7"><span class="toc-number">2.2.8.</span> <span class="toc-text">创建新用户</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E5%B0%BE"><span class="toc-number">2.3.</span> <span class="toc-text">收尾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#install-Gnome"><span class="toc-number">2.4.</span> <span class="toc-text">install Gnome</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tips"><span class="toc-number">2.4.1.</span> <span class="toc-text">tips</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.4.2.</span> <span class="toc-text">升级软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Xorg"><span class="toc-number">2.4.3.</span> <span class="toc-text">安装Xorg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Gnome%E4%B8%8Egdm"><span class="toc-number">2.4.4.</span> <span class="toc-text">安装Gnome与gdm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#End"><span class="toc-number">3.</span> <span class="toc-text">End</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol></div><div id="share-footer" style="display:none"></div><div id="actions-footer"><a id="menu" class="icon" href="#" onclick='return $("#nav-footer").toggle(),!1'><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a><a id="toc" class="icon" href="#" onclick='return $("#toc-footer").toggle(),!1'><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a><a id="share" class="icon" href="#" onclick='return $("#share-footer").toggle(),!1'><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a><a id="top" style="display:none" class="icon" href="#" onclick='$("html, body").animate({scrollTop:0},"fast")'><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></div></div></div><footer id="footer"><div class="footer-left">Copyright &copy; 2020 chy 🙂 power by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/probberechts/hexo-theme-cactus" target="_blank">cactus</a></div><div class="footer-right"><nav><ul><li><a href="/">Home</a></li><li><a href="/archives">Writing</a></li><li><a href="/categories">Category</a></li></ul></nav></div></footer></div><link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"><link rel="stylesheet" href="/lib/iconfont/iconfont.css"><link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css"><script src="/lib/jquery/jquery.min.js"></script><script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script>$(function() {
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Preface暑假里实在无聊，想到有“安装劝退”一说的Arch,应该能打发不少无聊时间吧；一直觉得命令行操作很神圣（炫、酷，~），大学刚开始就装了个来玩，是“对初学者友好”的Ubuntu，也就是按着某N、某书来的，装好后尴尬了😅，不知道该干嘛，高深的咱不懂，简单的一些操作指令敲多了也腻，于是搁置了。直到在装arch这段时间里，通过其优秀的官方文档 👏，辅以博文指导，才于第八次“渡劫”成功🎈，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install arch Linux in VMware">
+<meta property="og:url" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/index.html">
+<meta property="og:site_name" content="Chy&#39;s blog">
+<meta property="og:description" content="Preface暑假里实在无聊，想到有“安装劝退”一说的Arch,应该能打发不少无聊时间吧；一直觉得命令行操作很神圣（炫、酷，~），大学刚开始就装了个来玩，是“对初学者友好”的Ubuntu，也就是按着某N、某书来的，装好后尴尬了😅，不知道该干嘛，高深的咱不懂，简单的一些操作指令敲多了也腻，于是搁置了。直到在装arch这段时间里，通过其优秀的官方文档 👏，辅以博文指导，才于第八次“渡劫”成功🎈，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/01.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/02.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/03.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/04.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/05.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/06.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/07.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/08.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/09.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/10.png">
+<meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/11.png">
+<meta property="article:published_time" content="2020-09-10T10:52:38.000Z">
+<meta property="article:modified_time" content="2020-09-10T14:08:31.449Z">
+<meta property="article:author" content="chy">
+<meta property="article:tag" content="ArchLinux">
+<meta property="article:tag" content="VMware">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/01.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/android-chrome-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Install arch Linux in VMware</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives">Writing</a></li>
+         
+          <li><a href="/categories">Category</a></li>
+         
+          <li><a href="/search">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/09/10/hello-world/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <!--
+<ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&text=Install arch Linux in VMware"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&is_video=false&description=Install arch Linux in VMware"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Install arch Linux in VMware&body=Check out this article: http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&name=Install arch Linux in VMware&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&t=Install arch Linux in VMware"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+-->
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-number">1.</span> <span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main"><span class="toc-number">2.</span> <span class="toc-text">Main</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Before-you-begin"><span class="toc-number">2.1.</span> <span class="toc-text">Before you begin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="toc-number">2.1.1.</span> <span class="toc-text">版本说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.1.2.</span> <span class="toc-text">新建虚拟机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E9%80%89%E6%8B%A9"><span class="toc-number">2.1.3.</span> <span class="toc-text">方案选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Begin"><span class="toc-number">2.2.</span> <span class="toc-text">Begin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.2.1.</span> <span class="toc-text">检查网络连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="toc-number">2.2.2.</span> <span class="toc-text">更新系统时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA%F0%9F%91%88"><span class="toc-number">2.2.3.</span> <span class="toc-text">硬盘分区👈</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98%E4%BF%A1%E6%81%AF"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">查看硬盘信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">分区</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.4.</span> <span class="toc-text">格式化分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.5.</span> <span class="toc-text">挂载分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E9%A1%BB%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.2.6.</span> <span class="toc-text">安装必须的软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.2.7.</span> <span class="toc-text">配置系统</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Fstab"><span class="toc-number">2.2.7.1.</span> <span class="toc-text">Fstab</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Chroot"><span class="toc-number">2.2.7.2.</span> <span class="toc-text">Chroot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%B6%E5%8C%BA"><span class="toc-number">2.2.7.3.</span> <span class="toc-text">时区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%96"><span class="toc-number">2.2.7.4.</span> <span class="toc-text">本地化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.7.5.</span> <span class="toc-text">网络配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEroot%E5%AF%86%E7%A0%81"><span class="toc-number">2.2.7.6.</span> <span class="toc-text">设置root密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Boot-loader%F0%9F%91%88"><span class="toc-number">2.2.7.7.</span> <span class="toc-text">Boot loader👈</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%94%A8%E6%88%B7"><span class="toc-number">2.2.8.</span> <span class="toc-text">创建新用户</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E5%B0%BE"><span class="toc-number">2.3.</span> <span class="toc-text">收尾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#install-Gnome"><span class="toc-number">2.4.</span> <span class="toc-text">install Gnome</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tips"><span class="toc-number">2.4.1.</span> <span class="toc-text">tips</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.4.2.</span> <span class="toc-text">升级软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Xorg"><span class="toc-number">2.4.3.</span> <span class="toc-text">安装Xorg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Gnome%E4%B8%8Egdm"><span class="toc-number">2.4.4.</span> <span class="toc-text">安装Gnome与gdm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#End"><span class="toc-number">3.</span> <span class="toc-text">End</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Install arch Linux in VMware
+    </h1>
+
+
+
+    <div class="meta">
+      <i class="fas fa-user-alt"></i>
+      Author:
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">chy</span>
+      </span><br>
+      
+    <div class="postdate">
+        <i class="fas fa-calendar-times"></i>
+        Date:
+      
+        <time datetime="2020-09-10T10:52:38.000Z" itemprop="datePublished">2020-09-10</time>
+        
+        (Updated: <time datetime="2020-09-10T14:08:31.449Z" itemprop="dateModified">2020-09-10</time>)
+        
+      
+    </div>
+
+<br>
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        Category:
+        <a class="category-link" href="/categories/Linux/">Linux</a><br>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        Tags:
+        <a class="tag-link-link" href="/tags/ArchLinux/" rel="tag">ArchLinux</a>, <a class="tag-link-link" href="/tags/VMware/" rel="tag">VMware</a><br>
+    </div>
+
+
+
+      <!-- Pageviews added on 2020/9/10 -->
+      <i class="fas fa-eye"></i>
+      <span id="/2020/09/10/Install-arch-Linux-in-VMware/" class="leancloud-visitors" data-flag-title="Install arch Linux in VMware">
+            <em class="post-meta-item-text">Pageviews:</em>
+            <i class="leancloud-visitors-count">loading</i>
+      </span>
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>暑假里实在无聊，想到有“安装劝退”一说的Arch,应该能打发不少无聊时间吧；<br>一直觉得命令行操作很神圣（炫、酷，<del>~</del>），大学刚开始就装了个来玩，是“对初学者友好”的Ubuntu，也就是按着某N、某书来的，装好后尴尬了😅，不知道该干嘛，高深的咱不懂，简单的一些操作指令敲多了也腻，于是搁置了。直到在装arch这段时间里，通过其优秀的<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/">官方文档</a> 👏，辅以博文指导，才于第八次“渡劫”成功🎈，也体会到了其中之妙；<br>我是一名稳健的人儿😁，VMware走起！！!</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>Arch的安装其实<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Installation guide</a> 已经十分清晰、明了按着指南准没错，然后就是其中遇到的小坑之类的，Google一番，差不多就🆗了。</p>
+<h3 id="Before-you-begin"><a href="#Before-you-begin" class="headerlink" title="Before you begin"></a>Before you begin</h3><h4 id="版本说明"><a href="#版本说明" class="headerlink" title="版本说明"></a>版本说明</h4><p><a target="_blank" rel="noopener" href="https://my.vmware.com/cn/web/vmware/downloads/info/slug/desktop_end_user_computing/vmware_workstation_pro/15_0#product_downloads">VMware workstation</a> ： <code>VMware® Workstation 15 Pro-15.1.0</code><br><a target="_blank" rel="noopener" href="https://www.archlinux.org/download/">Arch Linux ISO</a> ： <code>archlinux-2020.08.01-x86_64</code></p>
+<h4 id="新建虚拟机"><a href="#新建虚拟机" class="headerlink" title="新建虚拟机"></a>新建虚拟机</h4><blockquote>
+<p>客户机操作系统: <code>linux</code><br>版本： <code>其他 Linux 4.x 或更高版本内核 64位</code><br>网络类型： <code>NAT</code><br>磁盘容量： <code>20GB</code><br>处理器数及内核数、内存等选项: <code>推荐or自定</code>  </p>
+</blockquote>
+<h4 id="方案选择"><a href="#方案选择" class="headerlink" title="方案选择"></a>方案选择</h4><p>在正式安装前要先对Linux下<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Partitioning_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#Master_Boot_Record">分区表、分区方案以及bootloader等点</a> (该wiki很详尽，但概括性强，深入理解还需另外查阅资料)有一定的了解，然后确定自己要安装的Arch的方案；<br>以下本人提供两种方案，可能并不是最优解（因为我对分区相关内容理解也并不深），但行得通，对入门菜鸟来说，差不多了吧。😂  </p>
+<p>方案一：</p>
+<blockquote>
+<p>BIOS + MBR + <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/GRUB">GRUB</a></p>
+</blockquote>
+<p>方案二：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface">EFI</a> + GPT + <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/REFInd">rEFInd</a></p>
+</blockquote>
+<h3 id="Begin"><a href="#Begin" class="headerlink" title="Begin"></a>Begin</h3><p>开启此虚拟机<br>但如果选择<strong>方案二</strong>，在开启前👇</p>
+<blockquote>
+<p>进入该虚拟机文件目录，找到 <code>xx.vmx</code> ,使用文本编辑器打开，在文件最底部添加行：</p>
+<blockquote>
+<p><code>firmware = &quot;efi&quot;</code></p>
+</blockquote>
+</blockquote>
+<p>然后可以看到启动界面：<br>方案一：  </p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/01.png" class="" title="方案一启动界面">  
+<p>方案二：  </p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/02.png" class="" title="方案二启动界面">  
+
+<p>片刻就进入命令行界面了</p>
+<h4 id="检查网络连接"><a href="#检查网络连接" class="headerlink" title="检查网络连接"></a>检查网络连接</h4><p>使用 <code>ping</code> 命令：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eg： ping -c 4 www.baidu.com</span><br></pre></td></tr></table></figure>
+
+<h4 id="更新系统时间"><a href="#更新系统时间" class="headerlink" title="更新系统时间"></a>更新系统时间</h4><p>使用 <code>timedatectl</code> 确保系统时间是准确的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-ntp <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>可以使用 <code>timedatectl status</code> 检查服务状态</p>
+<h4 id="硬盘分区👈"><a href="#硬盘分区👈" class="headerlink" title="硬盘分区👈"></a>硬盘分区👈</h4><h5 id="查看硬盘信息"><a href="#查看硬盘信息" class="headerlink" title="查看硬盘信息"></a>查看硬盘信息</h5><p><code>fdisk -l</code><br>我之前为该虚拟机分配了20GB，如图（请牢记你的硬盘名称，此处我的为 <code>/dev/sda</code> ）：</p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/03.png" class="" title="硬盘信息">  
+<p>结果中以 <code>rom</code>，<code>loop</code> 或者 <code>airoot</code> 结束的可以被忽略</p>
+<h5 id="分区"><a href="#分区" class="headerlink" title="分区"></a><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%BB%BA%E7%AB%8B%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA">分区</a></h5><p>分区常用方案</p>
+<blockquote>
+<ul>
+<li>引导分区 /boot：260–512 MiB</li>
+<li>交换分区 swap：虚拟内存，大于 512 MiB</li>
+<li>根目录 /：安装系统和软件，大小自定</li>
+<li>用户home /home：用户文档等所在地，大小自定</li>
+</ul>
+</blockquote>
+<p>我比较中意使用 <code>cdfisk</code>进行分区，键入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cfdisk /dev/sda</span><br></pre></td></tr></table></figure>
+
+<p>cfdisk使用：</p>
+<blockquote>
+<p>↑ ↓ 切换分区，← → 切换菜单选项；<br>先从 <code>free space</code> <code>new</code> 出分区，<code>new</code> 时确定分区大小，以及分区类型，然后可对该分区进行 <code>type</code> ,<code>bootable</code> 等定义；<br>分区完成后 <code>Write</code> , <code>yes</code>确定, <code>quit</code>即可</p>
+</blockquote>
+<p>然后会出现一道选择题 <code>select label type</code> :<br>毫无疑问，你是方案一就选择 <code>dos</code> ，方案二就选择 <code>gpt</code>  </p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/04.png" class="" title="select label type">  
+
+<p>方案一  分区方案：  </p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/05.png" class="" title="方案一 分区方案">  
+
+<p>方案二  分区方案：  </p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/06.png" class="" title="方案二 分区方案">  
+
+<h4 id="格式化分区"><a href="#格式化分区" class="headerlink" title="格式化分区"></a>格式化分区</h4><p>方案一：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/sda1</span><br><span class="line">mkswap /dev/sda2</span><br><span class="line">mkfs.ext4 /dev/sda3</span><br><span class="line">swapon /dev/sda2</span><br></pre></td></tr></table></figure>
+
+<p>方案二：<br>EFI分区需要格式化成FAT32格式（具体见<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/EFI_system_partition">Wiki</a> ）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkfs.vfat -F32 /dev/sda1</span><br><span class="line">mkswap /dev/sda2</span><br><span class="line">mkfs.ext4 /dev/sda3</span><br><span class="line">mkfs.ext4 /dev/sda4</span><br><span class="line">swapon /dev/sda2</span><br></pre></td></tr></table></figure>
+
+<h4 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h4><p>先挂载根分区</p>
+<p>方案一：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda3 /mnt</span><br><span class="line">mkdir /mnt/boot</span><br><span class="line">mount /dev/sda1 /mnt/boot</span><br></pre></td></tr></table></figure>
+
+<p>方案二：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda3 /mnt</span><br><span class="line">mkdir /mnt/boot</span><br><span class="line">mkdir /mnt/home</span><br><span class="line">mount /dev/sda1 /mnt/boot</span><br><span class="line">mount /dev/sda4 /mnt/home</span><br></pre></td></tr></table></figure>
+
+<p><code>lsblk</code>查看是否挂载成功  </p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/07.png" class="" title="lsblk">  
+
+<h4 id="安装必须的软件包"><a href="#安装必须的软件包" class="headerlink" title="安装必须的软件包"></a><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%AE%89%E8%A3%85%E5%BF%85%E9%A1%BB%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85">安装必须的软件包</a></h4><p>镜像源这个我没换也是ok的，所以，过！  </p>
+<p>键入命令：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap /mnt base linux linux-firmware vim</span><br></pre></td></tr></table></figure>
+
+<p><code>base-devel</code> 这个看个人了 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php?title=Installation_Guide&diff=253744&oldid=250715">👉Wiki</a></p>
+<h4 id="配置系统"><a href="#配置系统" class="headerlink" title="配置系统"></a>配置系统</h4><h5 id="Fstab"><a href="#Fstab" class="headerlink" title="Fstab"></a>Fstab</h5><p>生成 fstab 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+
+<p>检查一下生成的 <code>/mnt/etc/fstab</code> 文件是否正确（正确的该是你的分区情况表）</p>
+<h5 id="Chroot"><a href="#Chroot" class="headerlink" title="Chroot"></a>Chroot</h5><p>Change root 到新安装的系统：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch-chroot /mnt</span><br></pre></td></tr></table></figure>
+
+<h5 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h5><p>设置时区：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
+
+<p>运行 <code>hwclock</code> 以生成 <code>/etc/adjtime</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
+
+<h5 id="本地化"><a href="#本地化" class="headerlink" title="本地化"></a>本地化</h5><p>本地化的程序与库若要本地化文本，都依赖 Locale，后者明确规定地域、货币、时区日期的格式、字符排列方式和其他本地化标准。<br>需在这两个文件设置：locale.gen 与 locale.conf。  </p>
+<p>编辑/etc/locale.gen 然后移除需要的 地区 前的注释符号 <code>#</code>。  </p>
+<p>接着执行 locale-gen 以生成 locale 信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locale-gen</span><br></pre></td></tr></table></figure>
+
+<p>然后还需要设置LANG环境变量：  </p>
+<blockquote>
+<p>新建<code>/etc/locale.conf</code>并写入<code>LANG=en_US.UTF-8</code></p>
+</blockquote>
+<h5 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h5><p>设置主机名：</p>
+<blockquote>
+<p>创建<code>/etc/hostname</code>并写入主机名</p>
+</blockquote>
+<p>添加对应的信息到 hosts（ <code>/etc/hosts</code> ）:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 localhost</span><br><span class="line">::1       localhost</span><br><span class="line">127.0.1.1 主机名.localdomain 主机名</span><br></pre></td></tr></table></figure>
+
+<p>然后：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> dhcpcd.service</span><br><span class="line"><span class="comment"># 我这里提示不存在，于是：</span></span><br><span class="line">pacman -S dhcpcd</span><br></pre></td></tr></table></figure>
+
+<h5 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置<code>root</code>密码</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure>
+
+<h5 id="Boot-loader👈"><a href="#Boot-loader👈" class="headerlink" title="Boot loader👈"></a>Boot loader👈</h5><blockquote>
+<p>需要安装 <code>Linux</code> 引导加载程序,才能在安装后启动系统，可以使用的的引导程序已在 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Boot_loaders_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">启动加载器</a> 中列出，请选择一个安装并配置它，<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/GRUB">GRUB</a> 是最常见的选择。</p>
+</blockquote>
+<p>方案一：<br>安装 <code>grub</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S grub</span><br><span class="line">grub-install /dev/sda</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+
+<p>方案二：<br>安装 <code>rEFInd</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S refind-efi</span><br><span class="line">refind-install</span><br></pre></td></tr></table></figure>
+
+<p>对 <code>/boot/refind_linux.conf</code> 进行编辑：原：  </p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/08.png" class="" title="before">  
+<p>修改后：  </p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/09.png" class="" title="now">  
+
+<h4 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Users_and_groups">创建新用户</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -G additional_groups -s login_shell username</span><br><span class="line"><span class="comment"># eg:</span></span><br><span class="line">useradd -m -G wheel -s /bin/bash rick</span><br><span class="line"><span class="comment"># 设置密码：</span></span><br><span class="line">passwd username</span><br></pre></td></tr></table></figure>
+
+<p>为使在 <code>wheel</code> 组中的普通用户能够获得临时的root权限，需要修改 wheel 的权限设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">visudo</span><br><span class="line"><span class="comment"># 去掉行 `#%wheel ALL=(ALL) ALL` 前的 `#`</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 退出`arch-chroot`:</span></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"><span class="comment"># 卸载根目录</span></span><br><span class="line">umount -R /mnt</span><br><span class="line"><span class="comment"># 然后，重启：</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<p>幸运儿应该看到这个：😁</p>
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/10.png" class="" title="grub引导界面">  
+<img src="/2020/09/10/Install-arch-Linux-in-VMware/11.png" class="" title="refind引导界面">  
+
+<h3 id="install-Gnome"><a href="#install-Gnome" class="headerlink" title="install Gnome"></a>install Gnome</h3><h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><ul>
+<li>以普通用户登录</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Mirrors">选择和配置镜像</a> （安装arch过程中用的原始list，挺顺畅的，但到Gnome时全部404）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># location: /etc/pacman.d/mirrorlist</span></span><br><span class="line"><span class="comment"># 附上几个源： </span></span><br><span class="line">Server = http://mirrors.aliyun.com/archlinux/<span class="variable">$repo</span>/os/<span class="variable">$arch</span>  <span class="comment">#阿里</span></span><br><span class="line">Server = http://mirrors.ustc.edu.cn/archlinux/<span class="variable">$repo</span>/os/<span class="variable">$arch</span>  <span class="comment">#中科大</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="升级软件包"><a href="#升级软件包" class="headerlink" title="升级软件包"></a>升级软件包</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个 pacman 命令就可以升级整个系统。</span></span><br><span class="line">pacman -Syu</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装Xorg"><a href="#安装Xorg" class="headerlink" title="安装Xorg"></a>安装Xorg</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S xorg</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>摘自 <a target="_blank" rel="noopener" href="http://www.x.org/wiki/">http://www.x.org/wiki/</a>:<br>X.Org 项目提供了 X 窗口系统的开源实现。开发工作是在 freedesktop.org 社区的通力合作下完成。X.Org 组织是非盈利教育机构。<br> Xorg 在 Linux 用户中非常流行，已经成为图形用户程序的必备条件，所以大部分发行版都提供了它。详情参见 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/X.Org_Server">Xorg</a> 维基文章或访问<a target="_blank" rel="noopener" href="http://www.x.org/wiki/">Xorg 网站</a> 。 </p>
+</blockquote>
+<p><del>#### 安装显卡驱动</del></p>
+<p><strong>虚拟机没必要啊，似乎？！</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看显卡类型</span></span><br><span class="line">lspci |grep VGA</span><br><span class="line"><span class="comment"># 安装对应显卡驱动</span></span><br><span class="line">pacman -S xf86-video-xxx（nv,vmware,...）</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装Gnome与gdm"><a href="#安装Gnome与gdm" class="headerlink" title="安装Gnome与gdm"></a>安装<code>Gnome</code>与<code>gdm</code></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pacman -S gnome gnome-tweak-tool gdm</span><br><span class="line"><span class="comment"># 开机启动GDM服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> gdm.service</span><br><span class="line">reboot</span><br><span class="line"><span class="comment"># 就🆗了。。</span></span><br></pre></td></tr></table></figure>
+
+<p>Gnome我居然也整了两三次，当时装好一直在“锁屏+解锁”，给我难受的😫；<br>然后一不小心看到了 <code>图形内存！！！</code> ，才256MB,原因一定在这了！！！😰</p>
+<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Arch_is_the_best">Arch is the best!</a></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/">ArchWiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://chaseafterstart.github.io/">chaseafterstart</a></li>
+</ul>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div class="vcomment"></div>
+    </div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives">Writing</a></li>
+         
+          <li><a href="/categories">Category</a></li>
+         
+          <li><a href="/search">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preface"><span class="toc-number">1.</span> <span class="toc-text">Preface</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main"><span class="toc-number">2.</span> <span class="toc-text">Main</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Before-you-begin"><span class="toc-number">2.1.</span> <span class="toc-text">Before you begin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="toc-number">2.1.1.</span> <span class="toc-text">版本说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.1.2.</span> <span class="toc-text">新建虚拟机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E9%80%89%E6%8B%A9"><span class="toc-number">2.1.3.</span> <span class="toc-text">方案选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Begin"><span class="toc-number">2.2.</span> <span class="toc-text">Begin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.2.1.</span> <span class="toc-text">检查网络连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="toc-number">2.2.2.</span> <span class="toc-text">更新系统时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA%F0%9F%91%88"><span class="toc-number">2.2.3.</span> <span class="toc-text">硬盘分区👈</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98%E4%BF%A1%E6%81%AF"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">查看硬盘信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">分区</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.4.</span> <span class="toc-text">格式化分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.5.</span> <span class="toc-text">挂载分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E9%A1%BB%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.2.6.</span> <span class="toc-text">安装必须的软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.2.7.</span> <span class="toc-text">配置系统</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Fstab"><span class="toc-number">2.2.7.1.</span> <span class="toc-text">Fstab</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Chroot"><span class="toc-number">2.2.7.2.</span> <span class="toc-text">Chroot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%B6%E5%8C%BA"><span class="toc-number">2.2.7.3.</span> <span class="toc-text">时区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%96"><span class="toc-number">2.2.7.4.</span> <span class="toc-text">本地化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.7.5.</span> <span class="toc-text">网络配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEroot%E5%AF%86%E7%A0%81"><span class="toc-number">2.2.7.6.</span> <span class="toc-text">设置root密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Boot-loader%F0%9F%91%88"><span class="toc-number">2.2.7.7.</span> <span class="toc-text">Boot loader👈</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%94%A8%E6%88%B7"><span class="toc-number">2.2.8.</span> <span class="toc-text">创建新用户</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E5%B0%BE"><span class="toc-number">2.3.</span> <span class="toc-text">收尾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#install-Gnome"><span class="toc-number">2.4.</span> <span class="toc-text">install Gnome</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tips"><span class="toc-number">2.4.1.</span> <span class="toc-text">tips</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.4.2.</span> <span class="toc-text">升级软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Xorg"><span class="toc-number">2.4.3.</span> <span class="toc-text">安装Xorg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Gnome%E4%B8%8Egdm"><span class="toc-number">2.4.4.</span> <span class="toc-text">安装Gnome与gdm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#End"><span class="toc-number">3.</span> <span class="toc-text">End</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <!--
+<ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&text=Install arch Linux in VMware"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&is_video=false&description=Install arch Linux in VMware"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Install arch Linux in VMware&body=Check out this article: http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&title=Install arch Linux in VMware"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&name=Install arch Linux in VMware&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/&t=Install arch Linux in VMware"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+-->
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020
+    chy 🙂
+    power by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/probberechts/hexo-theme-cactus" target="_blank">cactus</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives">Writing</a></li>
+         
+          <li><a href="/categories">Category</a></li>
+         
+          <li><a href="/search">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
     // copy-btn HTML
     var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
     btn += '<i class="far fa-clone"></i>';
@@ -14,7 +482,43 @@
       e.trigger.setAttribute('aria-label', "Copied!");
       e.clearSelection();
     })
-  })</script><script src="/js/main.js"></script><script>!function(e,a,t,n,g,c,o){e.GoogleAnalyticsObject=g,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),o=a.getElementsByTagName(t)[0],c.async=1,c.src="//www.google-analytics.com/analytics.js",o.parentNode.insertBefore(c,o)}(window,document,"script",0,"ga"),ga("create","UA-179549926-1","auto"),ga("send","pageview")</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?a88ce989f90f4e43f84aa26bc26746b5";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script src="//cdn.jsdelivr.net/npm/typed.js@2.0.11"></script><script>const option = {
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-179549926-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?909ee0474ecf68883418919a16348363";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+<!-- Typed, Added on 2020/9/10 -->
+<script src="//cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script type="text/javascript">
+    
+    const option = {
         strings: [  '^1000',
             'Hello~ ^1000',
             'Welcome to my home. ^2000',
@@ -24,4 +528,26 @@
         backSpeed: 22,
         cursorChar: '_'
     };
-    const typed = new Typed('.typing', option);</script><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({el:".vcomment",appId:"x226vKJ5r3txIO7YW9hAsAUU-MdYXbMMI",appKey:"EyNTMHsVTzdoNb8oo6EfG7cS",avatar:"retro",placeholder:"Just say something! :)",notify:"false",verify:"false",visitor:"true"})</script></body></html>
+    const typed = new Typed('.typing', option);
+    
+</script>
+
+<!-- Valine Comments, added on 2020/9/10 -->
+
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script type="text/javascript">
+        new Valine({
+            el: '.vcomment',
+            appId: 'x226vKJ5r3txIO7YW9hAsAUU-MdYXbMMI',
+            appKey: 'EyNTMHsVTzdoNb8oo6EfG7cS',
+            avatar:"retro",
+            placeholder: 'Just say something! :)',
+            notify: 'false',
+            verify: 'false',
+            visitor: 'true',
+        });
+    </script>
+
+</body>
+</html>
