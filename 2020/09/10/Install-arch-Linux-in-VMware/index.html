@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/10.png">
 <meta property="og:image" content="http://chymziz.github.io/2020/09/10/Install-arch-Linux-in-VMware/11.png">
 <meta property="article:published_time" content="2020-09-10T10:52:38.000Z">
-<meta property="article:modified_time" content="2020-09-10T14:08:31.449Z">
+<meta property="article:modified_time" content="2020-10-19T07:01:55.731Z">
 <meta property="article:author" content="chy">
 <meta property="article:tag" content="VMware">
 <meta property="article:tag" content="ArchLinux">
@@ -151,7 +151,7 @@
       
         <time datetime="2020-09-10T10:52:38.000Z" itemprop="datePublished">2020-09-10</time>
         
-        (Updated: <time datetime="2020-09-10T14:08:31.449Z" itemprop="dateModified">2020-09-10</time>)
+        (Updated: <time datetime="2020-10-19T07:01:55.731Z" itemprop="dateModified">2020-10-19</time>)
         
       
     </div>
@@ -186,7 +186,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>暑假里实在无聊，想到有“安装劝退”一说的Arch,应该能打发不少无聊时间吧；<br>一直觉得命令行操作很神圣（炫、酷，<del>~</del>），大学刚开始就装了个来玩，是“对初学者友好”的Ubuntu，也就是按着某N、某书来的，装好后尴尬了😅，不知道该干嘛，高深的咱不懂，简单的一些操作指令敲多了也腻，于是搁置了。直到在装arch这段时间里，通过其优秀的<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/">官方文档</a> 👏，辅以博文指导，才于第八次“渡劫”成功🎈，也体会到了其中之妙；<br>我是一名稳健的人儿😁，VMware走起！！!</p>
+    <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>暑假里实在无聊，想到有“安装劝退”一说的Arch,应该能打发不少无聊时间吧；<br>一直觉得命令行操作很神圣（炫、酷，<del>~</del>），大学刚开始就装了个来玩，是“对初学者友好”的Ubuntu，也就是按着某N、某书来的，装好后尴尬了😅，不知道该干嘛，高深的咱不懂，简单的一些操作指令敲多了也腻，于是搁置了。直到在装arch这段时间里，通过其优秀的<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/">官方文档</a> 👏，辅以博文指导，才于第八次“渡劫”成功🎈，也体会到了其中之妙；<br>我是hen稳健的人😁，VMware走起！！!</p>
 <h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>Arch的安装其实<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Installation guide</a> 已经十分清晰、明了按着指南准没错，然后就是其中遇到的小坑之类的，Google一番，差不多就🆗了。</p>
 <h3 id="Before-you-begin"><a href="#Before-you-begin" class="headerlink" title="Before you begin"></a>Before you begin</h3><h4 id="版本说明"><a href="#版本说明" class="headerlink" title="版本说明"></a>版本说明</h4><p><a target="_blank" rel="noopener" href="https://my.vmware.com/cn/web/vmware/downloads/info/slug/desktop_end_user_computing/vmware_workstation_pro/15_0#product_downloads">VMware workstation</a> ： <code>VMware® Workstation 15 Pro-15.1.0</code><br><a target="_blank" rel="noopener" href="https://www.archlinux.org/download/">Arch Linux ISO</a> ： <code>archlinux-2020.08.01-x86_64</code></p>
 <h4 id="新建虚拟机"><a href="#新建虚拟机" class="headerlink" title="新建虚拟机"></a>新建虚拟机</h4><blockquote>
