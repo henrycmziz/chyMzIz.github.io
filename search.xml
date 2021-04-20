@@ -4,6 +4,38 @@
   
     
     <entry>
+      <title>软件项目管理之关键路径</title>
+      <link href="2021/04/20/CPM/"/>
+      <url>2021/04/20/CPM/</url>
+      
+        <content type="html"><![CDATA[<h2 id="PDM网络图"><a href="#PDM网络图" class="headerlink" title="PDM网络图"></a>PDM网络图</h2><img src="/2021/04/20/CPM/01.png" class="" title="select label type"><p><strong>ES：最早开始时间(Earliest Start)</strong> ，是指活动最早开始时间，由所有前置活动中最后一个最早结束时间确定。</p><p><strong>EF：最早结束时间(Earliest Finish)</strong> ，是指活动最早结束时间，由活动的最早开始时间加上其工期确定。</p><p><strong>LF：最迟结束时间(Latest Finish)</strong> ，是指一个活动在不耽误整个项目的结束时间的情况下能够最迟结束的时间。它等于所有紧后工作中最晚的一个最迟开始时间加上工期。</p><p><strong>LS：最迟开始时间(Latest Start)</strong> ，是指一个活动在不耽误整个项目的结束时间的情况下能够最迟开始的时间。它等于活动的最迟结束时间减去活动的工期。</p><p><strong>TF：总时差/总浮动(Total Float)</strong> ，是指一项活动在不影响整体计划工期的情况下最大的浮动时间。在任一网络路径上，进度活动可以从最早开始日期推迟或拖延的时间，而不至于延误项目完成日期或违反进度制约因素</p><p><strong>FF：自由时差/自由浮动(Free Float)</strong> ，是指活动在不影响其紧后工作的最早开始时间的情况下可以浮动（推迟）的时间。</p><h2 id="CPM分析"><a href="#CPM分析" class="headerlink" title="CPM分析"></a>CPM分析</h2><h3 id="顺推法"><a href="#顺推法" class="headerlink" title="顺推法"></a>顺推法</h3><p>从网络图左侧开始，为每项活动制定 最迟开始 和 最迟结束 时间，进行到网络图结束(最右边)。</p><p>1、任一活动的 <strong>最早开始时间</strong>，等于所有 <strong>前置活动</strong> 的 <strong>最早结束时间</strong> 的 <strong>最大者</strong>;</p><p>2、任一活动的 <strong>最早结束时间</strong>，等于该活动的 <strong>最早开始时间</strong> + <strong>活动持续时间</strong>（<strong>EF = ES + DU</strong>）;</p><p>3、没有 前置活动 的，ES 等于项目的开始时间。</p><h3 id="逆推法"><a href="#逆推法" class="headerlink" title="逆推法"></a>逆推法</h3><p>从网络图右侧开始，为每项活动制定 最迟开始 和 最迟结束 时间，进行到网络图开始(最左边)。</p><p>1、任一活动的 <strong>最迟结束时间</strong>，等于所有 <strong>后续活动</strong> 的 <strong>最迟开始时间</strong> 的 <strong>最小者</strong>;</p><p>2、任一活动的 <strong>最迟开始时间</strong>，等于该活动的 <strong>最迟结束时间</strong> - <strong>该活动工期</strong>（<strong>LS = LF - DU</strong>）;</p><p>3、没有 后续活动 的，LF 等于项目的结束时间或者规定的时间。</p><h3 id="总浮动"><a href="#总浮动" class="headerlink" title="总浮动"></a>总浮动</h3><p><strong>TF = LF – EF = LS - ES</strong></p><p>总浮动时间为正值，是由于逆推计算所使用的进度制约因素要晚于顺推计算所得出的最早完成日期，即给定的工期比计划的工期要长。</p><p>总浮动时间为负值，是由于持续时间和逻辑关系违反了对最晚日期的制约因素，即给定的工期要比计划的工期要短。</p><p>TF 为 0 的路径为 <strong>关键路径CP</strong> (Critical Path)</p><h3 id="自由浮动"><a href="#自由浮动" class="headerlink" title="自由浮动"></a>自由浮动</h3><p><strong>FF =紧后ES - EF</strong></p><p>总浮动时间 可能 大于/等于 自由浮动时间，TF≥FF</p><h2 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h2><ul><li><a href="https://www.cnblogs.com/jerryspace/p/11911766.html">玉米炖排骨</a></li><li><a href="https://zhuanlan.zhihu.com/p/50905254">简单项</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> CPM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="2020/11/18/hello-world/"/>
+      <url>2020/11/18/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>写博客的初衷是将其作为日记或笔记，记录关于自己的something。</p><ul><li><p>自记事以来，我的语言、文字表达能力极度不堪，高中以来大大小小的考试作文写够字数的次数<em>只手可数</em>,甚至高考！！！😶，所以也是借此锻炼一下。</p></li><li><p>稀里糊涂地入了<strong>CS</strong>。大学前并未接触💻太多，且多是在game；两年的课程学习中，真真真的是收获极大，但同时也才发现只是刚跨过门槛（或许还在跨ing🙃）。</p></li></ul><p>曾经幻想过自己可能是个geek天才、大牛🐂，只是还没有get到机遇。  </p><p>嗯，，梦终究是梦，现实的大嘴巴子👏，啪啪啪，出奇地响亮。</p><p><strong>地球🌏仍在运转，我们仍要前行。</strong></p><p><strong>Stay Hungry, Stay Foolish!</strong></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Dwm in Arch</title>
       <link href="2020/10/31/Dwm-in-Arch/"/>
       <url>2020/10/31/Dwm-in-Arch/</url>
@@ -48,19 +80,6 @@
             <tag> VMware </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="2020/09/10/hello-world/"/>
-      <url>2020/09/10/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>写博客的初衷是将其作为日记或笔记，记录关于自己的something。</p><ul><li><p>自记事以来，我的语言、文字表达能力极度不堪，高中以来大大小小的考试作文写够字数的次数<em>只手可数</em>,甚至高考！！！😶，所以也是借此锻炼一下。</p></li><li><p>稀里糊涂地入了<strong>CS</strong>。大学前并未接触💻太多，且多是在game；两年的课程学习中，真真真的是收获极大，但同时也才发现只是刚跨过门槛（或许还在跨ing🙃）。</p></li></ul><p>曾经幻想过自己可能是个geek天才、大牛🐂，只是还没有get到机遇。  </p><p>嗯，，梦终究是梦，现实的大嘴巴子👏，啪啪啪，出奇地响亮。</p><p><strong>地球🌏仍在运转，我们仍要前行。</strong></p><p><strong>Stay Hungry, Stay Foolish!</strong></p>]]></content>
-      
-      
       
     </entry>
     
